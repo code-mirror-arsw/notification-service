@@ -42,6 +42,28 @@ public class SendEmailServiceImpl implements SendEmailService {
         sendHtmlEmail(to, "📅 Entrevista programada – ¡Prepárate!", body);
     }
 
+    @Override
+    public void sendEvaluationResultEmail(String to, String name, int score, String feedback) {
+        boolean passed = score >= 70;
+        String subject = passed ? "🎉 ¡Felicidades, has aprobado!" : "📢 Resultado de evaluación – Intenta de nuevo";
+        String body = generateEvaluationResultBody(name, score, feedback, passed);
+        sendHtmlEmail(to, subject, body);
+    }
+
+    private String generateEvaluationResultBody(String name, int score, String feedback, boolean passed) {
+        String greeting = passed ? "¡Enhorabuena, " + name + "! 🎊" : "Hola " + name + " 👋";
+        String mainMsg = passed ?
+                "Has aprobado la evaluación con un puntaje de <strong>" + score + "</strong>. ¡Gran trabajo! 🧠" :
+                "Tu puntaje fue de <strong>" + score + "</strong>. No alcanzaste el puntaje mínimo para aprobar.";
+
+        String extraMsg = passed ?
+                "¡Sigue así! Pronto recibirás más información sobre los siguientes pasos." :
+                "No te desanimes. Puedes volver a intentarlo pronto. ¡Estamos seguros de que lo lograrás!";
+
+        return htmlTemplate(greeting, mainMsg, feedback + "<br><br>" + extraMsg, null);
+    }
+
+
 
     @Override
     public void sendApplicationRejectedEmail(String to, String name) {

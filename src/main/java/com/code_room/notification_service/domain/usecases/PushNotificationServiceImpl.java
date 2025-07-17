@@ -45,6 +45,13 @@ public class PushNotificationServiceImpl implements PushNotificationService {
                     sendEmailService.sendApplicationRejectedEmail(to, name);
                     break;
 
+                case APPLICATION_RESULT_AVAILABLE:
+                    int score = Integer.parseInt(data.getOrDefault("score", data.get("score")));
+                    String feedback = data.getOrDefault("feedback", data.get("feedback"));
+                    sendEmailService.sendEvaluationResultEmail(to, name, score, feedback);
+                    break;
+
+
 
                 default:
                     throw new Exception("Unknown notification type: " + fcmMessage.getSource());

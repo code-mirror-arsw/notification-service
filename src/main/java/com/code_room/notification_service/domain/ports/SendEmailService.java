@@ -8,5 +8,7 @@ public interface SendEmailService {
 
     void sendInterviewScheduledEmail(String to, String name, String date, String link);
 
+    void sendEvaluationResultEmail(String to, String name, int score, String feedback);
+
     void sendApplicationRejectedEmail(String to, String name);
 }

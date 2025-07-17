@@ -14,4 +14,7 @@ public enum NotificationType {
     // Notificación de rechazo de postulación
     APPLICATION_REJECTED,
 
+    // Notificación enviada cuando se publica el resultado final del proceso
+    APPLICATION_RESULT_AVAILABLE
+
 }
